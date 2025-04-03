@@ -1,5 +1,9 @@
+import os
+
+from config import DATA_DIR
 from src.category import Category
 from src.product import Product
+from src.utils import read_json, create_category_json
 
 if __name__ == "__main__":
     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
@@ -47,3 +51,7 @@ if __name__ == "__main__":
 
     print(Category.category_count)
     print(Category.product_count)
+
+    operations_path_json = os.path.join(DATA_DIR, "products.json")
+    category_data = read_json(operations_path_json)
+    category_product = create_category_json(category_data)

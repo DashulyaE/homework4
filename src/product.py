@@ -6,7 +6,7 @@ class Product:
 
     name: str
     description: str
-    price: str
+    price: float
     quantity: int
 
     @typing.no_type_check
