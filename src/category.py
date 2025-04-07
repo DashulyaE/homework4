@@ -34,3 +34,4 @@ class Category:
         self.__products.append(product)
         Category.category_count += 1
         Category.product_count += 1
+
