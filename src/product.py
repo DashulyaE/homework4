@@ -47,8 +47,17 @@ class Product:
 
     @price.setter
     def price(self, new_price):
-        if float(new_price) == 0 or float(new_price) < 0:
+        new_price = float(new_price)
+        if new_price <= 0:
             print("Цена не должна быть нулевая или отрицательная")
+        elif new_price < self.__price:
+            confirmation = input(
+                f"Цена товара {self.name} понижается с {self.__price} до {new_price}. Подтверждаете понижение цены? (y/n): ")
+            if confirmation.lower() == 'yes':
+                self.__price = new_price
+                print("Цена успешно изменена.")
+            else:
+                print("Изменение цены отменено.")
         else:
             self.__price = new_price
 
