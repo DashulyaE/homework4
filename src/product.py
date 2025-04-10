@@ -8,11 +8,56 @@ class Product:
     description: str
     price: float
     quantity: int
+    products_list = []
 
     @typing.no_type_check
     def __init__(self, name, description, price, quantity):
         """Метод для инициализации экземпляра класса. Задаем значения атрибутам экземпляра."""
         self.name = name
         self.description = description
-        self.price = price
+        self.__price = price
         self.quantity = quantity
+        Product.products_list.append(self)
+
+
+    @classmethod
+    def new_product(cls, new_product: dict):
+        if list(new_product.keys()) != ["name", "description", "price", "quantity"]:
+            raise ValueError("Ключи не совпадают")
+
+        name, description, price, quantity = new_product.values()
+
+        for existing_product in cls.products_list:
+            if existing_product.name == name and existing_product.description == description:
+                existing_product.quantity += quantity
+                existing_product.price = max(existing_product.price, price)  # Выбираем более высокую цену
+                return existing_product
+
+        return cls(name, description, price, quantity)
+
+    @classmethod
+    def get_products(cls):
+        return cls.products_list
+
+
+    @property
+    def price(self):
+        return self.__price
+
+
+    @price.setter
+    def price(self, new_price):
+        new_price = float(new_price)
+        if new_price <= 0:
+            print("Цена не должна быть нулевая или отрицательная")
+        elif new_price < self.__price:
+            confirmation = input(
+                f"Цена товара {self.name} понижается с {self.__price} до {new_price}. Подтверждаете понижение цены? (y/n): ")
+            if confirmation.lower() == 'yes':
+                self.__price = new_price
+                print("Цена успешно изменена.")
+            else:
+                print("Изменение цены отменено.")
+        else:
+            self.__price = new_price
+
