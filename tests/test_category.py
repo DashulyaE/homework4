@@ -20,3 +20,7 @@ def test_add_product(category1, products, products2):
     product2 = Product("Телевизор", "Смарт-телевизор", 30000, 3)
     category.add_product(product2)  # Добавляем тот же продукт
     assert Category.product_count == 2  # Увеличение общего количества
+
+
+def test_str_category(category1):
+    print(category1)
