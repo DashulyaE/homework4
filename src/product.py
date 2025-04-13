@@ -8,7 +8,7 @@ class Product:
     description: str
     price: float
     quantity: int
-    products_list = []
+    products_list: list = []
 
     @typing.no_type_check
     def __init__(self, name, description, price, quantity):
@@ -19,6 +19,11 @@ class Product:
         self.quantity = quantity
         Product.products_list.append(self)
 
+    def __str__(self):
+        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        return self.__price * self.quantity + other.__price * other.quantity
 
     @classmethod
     def new_product(cls, new_product: dict):
@@ -39,11 +44,9 @@ class Product:
     def get_products(cls):
         return cls.products_list
 
-
     @property
     def price(self):
         return self.__price
-
 
     @price.setter
     def price(self, new_price):
@@ -52,12 +55,13 @@ class Product:
             print("Цена не должна быть нулевая или отрицательная")
         elif new_price < self.__price:
             confirmation = input(
-                f"Цена товара {self.name} понижается с {self.__price} до {new_price}. Подтверждаете понижение цены? (y/n): ")
-            if confirmation.lower() == 'yes':
+                f"Цена товара {self.name} понижается с {self.__price} "
+                f"до {new_price}. Подтверждаете понижение цены? (y/n): "
+            )
+            if confirmation.lower() == "y":
                 self.__price = new_price
                 print("Цена успешно изменена.")
             else:
                 print("Изменение цены отменено.")
         else:
             self.__price = new_price
-
