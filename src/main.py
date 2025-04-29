@@ -1,6 +1,8 @@
+from itertools import product
+
 from src.category import Category
 from src.lawngrass import LawnGrass
-from src.product import Product
+from src.product import Product, Order
 from src.smartphone import Smartphone
 
 if __name__ == "__main__":  # pragma: no cover
@@ -22,3 +24,8 @@ if __name__ == "__main__":  # pragma: no cover
 
         category_empty = Category("Пустая категория", "Категория без продуктов", [])
         print(category_empty.middle_price())
+
+        order1 = Order(product1, 3)
+        order2 = Order(product2, 1)
+        print(order1)
+        print(order2)

@@ -1,10 +1,10 @@
 import typing
-from itertools import product
 
+from src.base_product import ProductOrder
 from src.product import Product
 
 
-class Category:
+class Category(ProductOrder):
     """Класс для представления категории продукта"""
 
     name: str

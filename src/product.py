@@ -1,6 +1,6 @@
 import typing
 
-from src.base_product import BaseProduct
+from src.base_product import BaseProduct, ProductOrder
 from src.print_mixin import PrintMixin
 
 
@@ -74,3 +74,17 @@ class Product(BaseProduct, PrintMixin):
                 print("Изменение цены отменено.")
         else:
             self.__price = new_price
+
+
+class Order(ProductOrder):
+    """Класс Заказ, в котором находится информация о купленном товаре и его стоимость общая """
+
+    def __init__(self, product: Product, buy_count):
+        self.product = product
+        self.buy_count = buy_count
+        self.total_sum = self.product.price * buy_count
+        self.product.quantity -= self.buy_count
+
+
+    def __str__(self):
+        return f"Товар: {self.product}, кол-во куплено: {self.buy_count} шт. на сумму: {self.total_sum} шт."
