@@ -1,4 +1,3 @@
-
 def test_LawnGrass(grass1):
     assert grass1.name == "Газонная трава"
     assert grass1.description == "Элитная трава для газона"
