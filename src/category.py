@@ -4,6 +4,7 @@ from src.base_product import ProductOrder
 from src.product import Product
 from src.exceptions import ZeroProduct
 
+
 class Category(ProductOrder):
     """Класс для представления категории продукта"""
 
@@ -57,9 +58,10 @@ class Category(ProductOrder):
     def product_lst(self):
         return self.__products
 
-
     def middle_price(self):
         try:
-            return sum([product.price for product in self.__products])/sum(product.quantity for product in self.__products)
+            return sum([product.price for product in self.__products]) / sum(
+                product.quantity for product in self.__products
+            )
         except ZeroDivisionError:
             return 0

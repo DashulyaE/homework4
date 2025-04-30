@@ -73,5 +73,5 @@ def test_product_zero():
         Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 0)
 
 
-def test_middle_price(category2):
-    assert category2.middle_price() == 17571.428571428572
+def test_middle_price(category3):
+    assert category3.middle_price() == 17571.428571428572
