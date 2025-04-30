@@ -1,8 +1,8 @@
 import typing
 
 from src.base_product import BaseProduct, ProductOrder
+from src.exceptions import ZeroProduct
 from src.print_mixin import PrintMixin
-
 
 class Product(BaseProduct, PrintMixin):
     """Класс для представления продукта"""
@@ -24,6 +24,7 @@ class Product(BaseProduct, PrintMixin):
             Product.products_list.append(self)
         else:
             raise ValueError("Товар с нулевым количеством не может быть добавлен")
+            return 0
         super().__init__()
 
     def __str__(self):
@@ -83,7 +84,17 @@ class Order(ProductOrder):
         self.product = product
         self.buy_count = buy_count
         self.total_sum = self.product.price * buy_count
-        self.product.quantity -= self.buy_count
+        try:
+            if product.quantity == 0:
+                raise ZeroProduct("Нельзя добавить продукт в заказ с нулевым кол-вом")
+        except ZeroProduct as e:
+            print(str(e))
+        else:
+            self.product.quantity -= self.buy_count
+            print("Продукт добавлен успешно в заказ")
+        finally:
+            print("Обработка товара завершена")
+
 
 
     def __str__(self):

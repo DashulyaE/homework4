@@ -1,5 +1,7 @@
 import unittest
 
+import pytest
+
 from src.product import Product
 from unittest import mock
 
@@ -60,3 +62,16 @@ def test_product_add(products2, products3):
 
 def test_str_prod(products2):
     print(products2)
+
+
+def test_order_init(order1):
+    assert order1.buy_count == 2
+
+
+def test_product_zero():
+    with pytest.raises(ValueError):
+        Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 0)
+
+
+def test_middle_price(category2):
+    assert category2.middle_price() == 17571.428571428572

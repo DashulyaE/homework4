@@ -1,6 +1,7 @@
 from itertools import product
 
 from src.category import Category
+from src.exceptions import ZeroProduct
 from src.lawngrass import LawnGrass
 from src.product import Product, Order
 from src.smartphone import Smartphone
@@ -18,14 +19,18 @@ if __name__ == "__main__":  # pragma: no cover
         product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
         product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
 
-        category1 = Category("Смартфоны", "Категория смартфонов", [product1, product2, product3])
+        category1 = Category("Смартфоны", "Категория смартфонов", [product1, product2])
 
         print(category1.middle_price())
 
         category_empty = Category("Пустая категория", "Категория без продуктов", [])
         print(category_empty.middle_price())
 
+        print(category1)
         order1 = Order(product1, 3)
         order2 = Order(product2, 1)
-        print(order1)
-        print(order2)
+
+        category1.add_product(product3)
+
+        #product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 0)
+        #category1.add_product(product3)
