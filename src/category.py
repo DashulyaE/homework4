@@ -1,9 +1,11 @@
 import typing
 
+from src.base_product import ProductOrder
 from src.product import Product
+from src.exceptions import ZeroProduct
 
 
-class Category:
+class Category(ProductOrder):
     """Класс для представления категории продукта"""
 
     name: str
@@ -37,12 +39,29 @@ class Category:
 
     def add_product(self, product: Product):
         if isinstance(product, Product):
-            self.__products.append(product)
-            Category.category_count += 1
-            Category.product_count += 1
+            try:
+                if product.quantity == 0:
+                    raise ZeroProduct("Нельзя добавить продукт с нулевым кол-вом")
+            except ZeroProduct as e:
+                print(str(e))
+            else:
+                self.__products.append(product)
+                Category.category_count += 1
+                Category.product_count += 1
+                print("Продукт добавлен успешно")
+            finally:
+                print("Обработка товара завершена")
         else:
             raise TypeError
 
     @property
     def product_lst(self):
         return self.__products
+
+    def middle_price(self):
+        try:
+            return sum([product.price for product in self.__products]) / sum(
+                product.quantity for product in self.__products
+            )
+        except ZeroDivisionError:
+            return 0
